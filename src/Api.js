@@ -24,7 +24,7 @@ const sorter = (arr,v) => {
 
 function Api() {
   const [products, setProducts] = useState([]);
-  const [search, setSearch] = React.useState({text:"", sort:"rating", type:"brand", subtype:"clinique"});
+  const [search, setSearch] = React.useState({text:"", sort:"rating", type:"brand", subtype:"nyx"});
   const [loading, setLoading] = useState(false);
   
   // get data
@@ -72,7 +72,7 @@ function Api() {
         {
           ...prevState,
           type: t,
-          subtype:"clinique"
+          subtype:"nyx"
         }
       ))
     }else{
@@ -85,7 +85,7 @@ function Api() {
       ))
     }
   }
-
+  console.log(search)
   return (
     <Fragment >
         <Container>
@@ -101,12 +101,10 @@ function Api() {
                     onSelect={(s) => setSearch((prevState) => ({...prevState,subtype: s}))}
                   className="mb-3"
                 >
-                  <Tab eventKey="clinique" title="Clinique"></Tab>
                   <Tab eventKey="nyx" title="Nyx"></Tab>
+                  <Tab eventKey="clinique" title="Clinique"></Tab>
                   <Tab eventKey="dior" title="Dior"></Tab>
                   <Tab eventKey="l'oreal" title="L'oreal"></Tab>
-                  <Tab eventKey="colourpop" title="Colourpop"></Tab>
-                  <Tab eventKey="annabelle" title="Annabelle"></Tab>
 
                 </Tabs>
               </Tab>
@@ -118,9 +116,7 @@ function Api() {
                 >
                   <Tab eventKey="lipstick" title="Lipstick"></Tab>
                   <Tab eventKey="eyeliner" title="Eyeliner"></Tab>
-                  <Tab eventKey="blush" title="Blush"></Tab>
                   <Tab eventKey="foundation" title="Foundation"></Tab>
-                  <Tab eventKey="mascara" title="Mascara"></Tab>
                   <Tab eventKey="nail_polish" title="Nail Polish"></Tab>
 
                 </Tabs>

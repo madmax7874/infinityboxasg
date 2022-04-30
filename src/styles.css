@@ -1,3 +1,21 @@
+a{
+    text-decoration:none ;
+    color: black;
+}
+a:hover{
+    text-decoration: underline;
+    transition: text-decoration 500ms linear;
+    color:black;
+}
+
 .card:hover{
-    background-color: lightblue;
+    border: 1px solid #0096c7;
+    background-color: #caf0f8;
+    transition: background-color 500ms linear;
+
+}
+
+.btn:focus,.input:focus,.form-control:focus,.form-select:focus {
+    outline: none;
+    box-shadow: none;
 }
