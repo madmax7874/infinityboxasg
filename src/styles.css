@@ -19,3 +19,7 @@ a:hover{
     outline: none;
     box-shadow: none;
 }
+
+.nav{
+    justify-content: center;
+}

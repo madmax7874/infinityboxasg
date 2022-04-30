@@ -18,23 +18,27 @@ function SearchBar(props) {
               />
             </InputGroup>
           </Col>
-          <Col md={6} style={{display:"flex", justifyContent:"end" }}>
-            <Form.Group>
-              <Form.Label style={{margin:"0rem 1rem"}}>Sort By{" "}</Form.Label>
-              <select
-                label="Sort By "
-                style={{ display: "inline",width: "auto",fontWeight:"500"}}
-                className="form-select"
-                name="sort"
-                required={true}
-                value={props.value.category}
-                onChange={(e) => props.handleChange(e)}
-              >
-                <option style={{color:"#303179", fontWeight:"500"}} value="rating">Rating</option>
-                <option style={{color:"#303179", fontWeight:"500"}} value="price">Price</option>
-              </select>
-            </Form.Group>
-          </Col>
+          {
+            props.value.text ? (null) : (
+              <Col md={6} style={{display:"flex", justifyContent:"end" }}>
+                <Form.Group>
+                  <Form.Label style={{margin:"0rem 1rem"}}>Sort By{" "}</Form.Label>
+                  <select
+                    label="Sort By "
+                    style={{ display: "inline",width: "auto",fontWeight:"500"}}
+                    className="form-select"
+                    name="sort"
+                    required={true}
+                    value={props.value.category}
+                    onChange={(e) => props.handleChange(e)}
+                  >
+                    <option style={{color:"#303179", fontWeight:"500"}} value="rating">Rating</option>
+                    <option style={{color:"#303179", fontWeight:"500"}} value="price">Price</option>
+                  </select>
+                </Form.Group>
+              </Col>
+            )
+          }
         </Row>
       </Form>
     </Fragment>

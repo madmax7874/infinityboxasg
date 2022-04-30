@@ -3,6 +3,7 @@ import { Container, Row, Tabs, Tab } from "react-bootstrap";
 import Item from "./Item";
 import SearchBar from "./SearchBar";
 import { ClipLoader } from "react-spinners";
+import SearchOp from "./SearchOp";
 
 const axios = require("axios");
 
@@ -85,53 +86,58 @@ function Api() {
       ))
     }
   }
-  console.log(search)
   return (
     <Fragment >
         <Container>
             <SearchBar handleChange={handleChange} value={search}/>
-            <Tabs
-              activeKey={search.type}
-                onSelect={(t) =>  typeSelector(t)}
-              className="mb-3"
-            >
-              <Tab eventKey="brand" title="Brand">
+            {search.text ? (
+              <SearchOp value={search}/>
+            ) : (
+              <div>
                 <Tabs
-                  activeKey={search.subtype}
-                    onSelect={(s) => setSearch((prevState) => ({...prevState,subtype: s}))}
+                  activeKey={search.type}
+                    onSelect={(t) =>  typeSelector(t)}
                   className="mb-3"
                 >
-                  <Tab eventKey="nyx" title="Nyx"></Tab>
-                  <Tab eventKey="clinique" title="Clinique"></Tab>
-                  <Tab eventKey="dior" title="Dior"></Tab>
-                  <Tab eventKey="l'oreal" title="L'oreal"></Tab>
-
+                  <Tab eventKey="brand" title="Brand">
+                    <Tabs
+                      activeKey={search.subtype}
+                        onSelect={(s) => setSearch((prevState) => ({...prevState,subtype: s}))}
+                      className="mb-3"
+                    >
+                      <Tab eventKey="nyx" title="Nyx"></Tab>
+                      <Tab eventKey="clinique" title="Clinique"></Tab>
+                      <Tab eventKey="dior" title="Dior"></Tab>
+                      <Tab eventKey="l'oreal" title="L'oreal"></Tab>
+  
+                    </Tabs>
+                  </Tab>
+                  <Tab eventKey="product_type" title="Type">
+                    <Tabs
+                      activeKey={search.subtype}
+                        onSelect={(s) => setSearch((prevState) => ({...prevState,subtype: s}))}
+                      className="mb-3"
+                    >
+                      <Tab eventKey="lipstick" title="Lipstick"></Tab>
+                      <Tab eventKey="foundation" title="Foundation"></Tab>
+                      <Tab eventKey="eyeliner" title="Eyeliner"></Tab>
+                      <Tab eventKey="nail_polish" title="Nail Polish"></Tab>
+  
+                    </Tabs>
+                  </Tab>
                 </Tabs>
-              </Tab>
-              <Tab eventKey="product_type" title="Type">
-                <Tabs
-                  activeKey={search.subtype}
-                    onSelect={(s) => setSearch((prevState) => ({...prevState,subtype: s}))}
-                  className="mb-3"
-                >
-                  <Tab eventKey="lipstick" title="Lipstick"></Tab>
-                  <Tab eventKey="eyeliner" title="Eyeliner"></Tab>
-                  <Tab eventKey="foundation" title="Foundation"></Tab>
-                  <Tab eventKey="nail_polish" title="Nail Polish"></Tab>
-
-                </Tabs>
-              </Tab>
-            </Tabs>
-            <Row>
-              {loading ? (
-                products.map((item,index) =>{
-                  return (<Item key={index} data={item} index={index}/>)
-                })
-              ) : (
-              <div style={{ textAlign: "center", paddingTop: "200px" }}>
-                <ClipLoader color="#141850" size={70} />
-              </div>)}
-            </Row>
+                <Row>
+                  {loading ? (
+                    products.map((item,index) =>{
+                      return (<Item key={index} data={item} index={index}/>)
+                    })
+                  ) : (
+                  <div style={{ textAlign: "center", paddingTop: "200px" }}>
+                    <ClipLoader color="#141850" size={70} />
+                  </div>)}
+                </Row>
+              </div>
+            )}
         </Container>
     </Fragment>
   );

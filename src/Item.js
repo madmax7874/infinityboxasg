@@ -12,7 +12,7 @@ function Item(props) {
         <Card style={{ margin: "1rem" }}>
           <Row>
             <Col md={4} style={{display:"flex", alignItems:"center",justifyContent:'center', padding:"0.5rem"}}>
-              <Image src={props.data.image_link} className="img-fluid" style={{borderRadius:"5px", maxHeight:"100px",maxWidth:"95px"}}></Image>
+              <Image src={props.data.image_link} className="img-fluid" style={{borderRadius:"5px", maxHeight:"100px",maxWidth:"93px"}}></Image>
             </Col>
             <Col md={8}>
               <Card.Body style={{padding:"0.5rem"}}>
