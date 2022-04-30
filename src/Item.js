@@ -16,13 +16,13 @@ function Item(props) {
             </Col>
             <Col md={8}>
               <Card.Body style={{padding:"0.5rem"}}>
-                <Card.Title style={{fontSize:"0.9rem",display:"block",whiteSpace:"nowrap",overflow: "hidden",textOverflow: "ellipsis"}}>
+                <Card.Title style={{fontSize:"1rem",display:"block",whiteSpace:"nowrap",overflow: "hidden",textOverflow: "ellipsis"}}>
                   {props.data.name}
                 </Card.Title>
-                <span style={{fontSize:"0.8rem"}}>
-                  {props.data.price_sign}{" "}{props.data.price}
+                <span style={{fontSize:"0.8rem",display:"block"}}>
+                  {props.data.price_sign}{props.data.price ? props.data.price : "0.0"}{" , "}{props.data.rating ? props.data.rating : "0"}&#9733;
                 </span>
-                <br/>
+                {/* <br/> */}
                 <span style={{fontSize:"0.8rem",lineHeight:"0.8"}}>
                   {truncate(props.data.description ? props.data.description : "Don’t feel strain, we will make you good",50)}
                 </span>

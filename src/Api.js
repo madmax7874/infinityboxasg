@@ -6,9 +6,25 @@ import { ClipLoader } from "react-spinners";
 
 const axios = require("axios");
 
+// aray sorter function
+const sorter = (arr,v) => {
+  if (v === "rating"){
+    const sorted = [...arr].sort((a, b) => {
+      return b[v] - a[v];
+    });
+    return sorted
+  }
+  else{
+    const sorted = [...arr].sort((a, b) => {
+      return a[v] - b[v];
+    });
+    return sorted
+  }
+}
+
 function Api() {
   const [products, setProducts] = useState([]);
-  const [search, setSearch] = React.useState({text:"", sort:"rating",type:"brand",subtype:"clinique"});
+  const [search, setSearch] = React.useState({text:"", sort:"rating", type:"brand", subtype:"clinique"});
   const [loading, setLoading] = useState(false);
   
   // get data
@@ -24,7 +40,8 @@ function Api() {
         const str=`${search.type}=${search.subtype}`
         const url = `http://makeup-api.herokuapp.com/api/v1/products.json?${str}`;
         const { data } = await axios.get(url, config);
-        setProducts(data)
+        const v= search.sort
+        setProducts(sorter(data,v))
         setLoading(true);
       } catch (error) {
         console.log(error);
@@ -33,12 +50,11 @@ function Api() {
     fetchPrivateData();
   }, [search.type,search.subtype]);
 
-  // array sorter
+  // sort products
   useEffect(() => {
-    products.sort(function (a, b) {
-      return a.value - b.value;
-    });
-  }, []);
+    const v = search.sort;
+    setProducts(sorter(products,v))
+  }, [search.sort]);
 
   // search bar handler
   const handleChange = (e) => {
@@ -51,7 +67,7 @@ function Api() {
 
   // type seletor
   const typeSelector = (t) =>{
-    if (t=="brand"){
+    if (t==="brand"){
       setSearch((prevState) => (
         {
           ...prevState,
@@ -69,10 +85,6 @@ function Api() {
       ))
     }
   }
-
-  const itemarr = products.map((item,index) =>{
-    return (<Item key={index} data={item} index={index}/>)
-  })
 
   return (
     <Fragment >
@@ -113,10 +125,13 @@ function Api() {
 
                 </Tabs>
               </Tab>
-              <Tab eventKey="Dior" title="Dior"></Tab>
             </Tabs>
             <Row>
-              {loading ? itemarr : (
+              {loading ? (
+                products.map((item,index) =>{
+                  return (<Item key={index} data={item} index={index}/>)
+                })
+              ) : (
               <div style={{ textAlign: "center", paddingTop: "200px" }}>
                 <ClipLoader color="#141850" size={70} />
               </div>)}
