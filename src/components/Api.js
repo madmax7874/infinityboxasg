@@ -2,8 +2,8 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Container, Row, Tabs, Tab } from "react-bootstrap";
 import Item from "./Item";
 import SearchBar from "./SearchBar";
-import { ClipLoader } from "react-spinners";
 import SearchOp from "./SearchOp";
+import Loader from "./Loader";
 
 const axios = require("axios");
 
@@ -131,10 +131,7 @@ function Api() {
                     products.map((item,index) =>{
                       return (<Item key={index} data={item} index={index}/>)
                     })
-                  ) : (
-                  <div style={{ textAlign: "center", paddingTop: "200px" }}>
-                    <ClipLoader color="#141850" size={70} />
-                  </div>)}
+                  ) : <Loader />}
                 </Row>
               </div>
             )}

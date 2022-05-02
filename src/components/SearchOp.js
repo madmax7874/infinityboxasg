@@ -1,7 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Accordion, Row } from "react-bootstrap";
-import { ClipLoader } from "react-spinners";
 import Item from "./Item";
+import Loader from "./Loader";
+
+import NoSearch from "./NoSearch";
 const axios = require("axios");
 
 function SearchOp(props) {
@@ -10,6 +12,7 @@ function SearchOp(props) {
   const [dior, setDior] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // get data
   useEffect(() => {
     const fetchPrivateData = async () => {
       try {
@@ -30,6 +33,7 @@ function SearchOp(props) {
     fetchPrivateData();
   }, []);
 
+  // create filtered display array of products
   const cliniqueArr = clinique
     .filter((item) => {
       return item[`name`].startsWith(props.value.text);
@@ -68,36 +72,38 @@ function SearchOp(props) {
   return (
     <Fragment>
       {loading ? (
-        <Accordion defaultActiveKey="0">
-          {cliniqueArr.length >0 ? (
-            <Accordion.Item eventKey="0">
+        cliniqueArr.length > 0 || nyxArr.length > 0 || diorArr.length > 0 ? (
+          <Accordion defaultActiveKey={['0','1','2']} style={{padding:"1rem"}}>
+            {cliniqueArr.length > 0 ? (
+              <Accordion.Item eventKey="0">
                 <Accordion.Header>Clinique</Accordion.Header>
                 <Accordion.Body>
-                <Row>{cliniqueArr}</Row>
+                  <Row>{cliniqueArr}</Row>
                 </Accordion.Body>
-            </Accordion.Item>
-          ):null}
-          {nyxArr.length >0 ? (
-            <Accordion.Item eventKey="1">
+              </Accordion.Item>
+            ) : null}
+            {nyxArr.length > 0 ? (
+              <Accordion.Item eventKey="1">
                 <Accordion.Header>Nyx</Accordion.Header>
                 <Accordion.Body>
-                <Row>{nyxArr}</Row>
+                  <Row>{nyxArr}</Row>
                 </Accordion.Body>
-            </Accordion.Item>
-          ): null}
-          {diorArr.length >0 ? (
-            <Accordion.Item eventKey="2">
+              </Accordion.Item>
+            ) : null}
+            {diorArr.length > 0 ? (
+              <Accordion.Item eventKey="2">
                 <Accordion.Header>Dior</Accordion.Header>
                 <Accordion.Body>
-                <Row>{diorArr}</Row>
+                  <Row>{diorArr}</Row>
                 </Accordion.Body>
-            </Accordion.Item>
-          ) : null}
-        </Accordion>
+              </Accordion.Item>
+            ) : null}
+          </Accordion>
+        ) : (
+          <NoSearch name={props.value.text} />
+        )
       ) : (
-        <div style={{ textAlign: "center", paddingTop: "200px" }}>
-          <ClipLoader color="#141850" size={70} />
-        </div>
+        <Loader />
       )}
     </Fragment>
   );
